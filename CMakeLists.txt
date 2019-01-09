@@ -1,0 +1,56 @@
+# CMake版本要求
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+# 显示编译选项
+SET(CMAKE_VERBOSE_MAKEFILE ON)
+
+# 使用文件夹分类项目
+SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS On)
+
+# 项目名称
+PROJECT(Aresengine)
+
+# 设置库执行程序生成路径
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/Bin)
+SET(LIBRARY_OUTPUT_PATH	   ${PROJECT_SOURCE_DIR}/Lib)
+
+# 设置安装目录
+SET(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR})
+
+#MESSAGE(STATUS "Library Directory:" ${LIBRARY_OUTPUT_PATH})
+
+# 模板:添加预处理器
+IF(WIN32)
+#	ADD_DEFINITIONS(-DARES_PLATFORM_WINDOWS)
+ELSEIF(APPLE)
+
+ENDIF()
+
+# 添加项目子目录
+ADD_SUBDIRECTORY(Source/Core)
+ADD_SUBDIRECTORY(Source/Physics)
+ADD_SUBDIRECTORY(Source/Engine)
+ADD_SUBDIRECTORY(Source/tolua++)
+
+IF(WIN32)
+	ADD_SUBDIRECTORY(Source\\Plugin_D3D11)
+	ADD_SUBDIRECTORY(Source\\Plugin_OpenGL)
+	ADD_SUBDIRECTORY(Source\\Plugin_OpenGLES)
+	ADD_SUBDIRECTORY(Source\\Editors\\EditorKit)
+	ADD_SUBDIRECTORY(Source\\Editors\\AStudio)
+	ADD_SUBDIRECTORY(Source\\lightmass\\pbrt)
+ENDIF()
+
+IF(APPLE)
+	IF(${CMAKE_OSX_SYSROOT} MATCHES "MacOSX.platform")
+		ADD_SUBDIRECTORY(Source/Plugin_OpenGL)
+		MESSAGE(STATUS "Build Platform Apple Mac...")
+	ELSE()
+		ADD_SUBDIRECTORY(Source/Plugin_OpenGLES)
+		ADD_SUBDIRECTORY(Source/Samples/IOS/Cloth)
+		MESSAGE(STATUS "Build Platform Apple IOS...")
+        
+        SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} -arch armv7")
+        SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -arch armv7")
+	ENDIF()
+ENDIF()

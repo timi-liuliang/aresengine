@@ -1,0 +1,7 @@
+$#include <Core/AresVcWin32.h>
+
+namespace Ares
+{
+	// MathLibrary
+	FORCEINLINE FLOAT appTan( FLOAT value) { return tanf(value); }
+}

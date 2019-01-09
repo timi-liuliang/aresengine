@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SCMainWindow</class>
+ <widget class="QMainWindow" name="SCMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>768</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>无标题-Ares Studio(32位, Dx11)</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="App.qrc">
+    <normaloff>:/icon/Icon/WindowIcon.png</normaloff>:/icon/Icon/WindowIcon.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="m_menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="m_menuF">
+    <property name="title">
+     <string>文件(&amp;F)</string>
+    </property>
+    <widget class="QMenu" name="m_actionRecentFiles">
+     <property name="title">
+      <string>最近打开文件</string>
+     </property>
+    </widget>
+    <widget class="QMenu" name="menu_I">
+     <property name="title">
+      <string>导入(&amp;I)</string>
+     </property>
+     <addaction name="m_actionImportCurScene"/>
+    </widget>
+    <widget class="QMenu" name="menu_E_2">
+     <property name="title">
+      <string>导出(&amp;E)</string>
+     </property>
+     <addaction name="m_actionExportNavigationMesh"/>
+    </widget>
+    <addaction name="m_actionNewMap"/>
+    <addaction name="m_pActionOpen"/>
+    <addaction name="m_pActionSave"/>
+    <addaction name="separator"/>
+    <addaction name="menu_I"/>
+    <addaction name="menu_E_2"/>
+    <addaction name="separator"/>
+    <addaction name="m_actionRecentFiles"/>
+    <addaction name="separator"/>
+    <addaction name="m_actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>帮助(&amp;H)</string>
+    </property>
+    <addaction name="m_pActionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuGame">
+    <property name="title">
+     <string>预览(&amp;P)</string>
+    </property>
+    <addaction name="m_actionSwitch_to_Game"/>
+   </widget>
+   <widget class="QMenu" name="menu_B">
+    <property name="title">
+     <string>构建(&amp;C)</string>
+    </property>
+    <addaction name="m_actionBuildLightmap"/>
+    <addaction name="m_actionNavigationMesh"/>
+   </widget>
+   <widget class="QMenu" name="menu_E">
+    <property name="title">
+     <string>编辑(&amp;E)</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_T">
+    <property name="title">
+     <string>工具(&amp;T)</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="m_actionTextureTool"/>
+    <addaction name="m_actionShaderEdit"/>
+    <addaction name="m_actionLightmass"/>
+    <addaction name="separator"/>
+    <addaction name="m_actionPropertys"/>
+   </widget>
+   <widget class="QMenu" name="menu_V">
+    <property name="title">
+     <string>视图&amp;V</string>
+    </property>
+    <addaction name="m_actionGrassPlant"/>
+    <addaction name="m_actionContentBrowser"/>
+   </widget>
+   <addaction name="m_menuF"/>
+   <addaction name="menu_E"/>
+   <addaction name="menu_V"/>
+   <addaction name="menu_B"/>
+   <addaction name="menu_T"/>
+   <addaction name="menuGame"/>
+   <addaction name="menu_Help"/>
+  </widget>
+  <widget class="QToolBar" name="m_toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>15</width>
+     <height>15</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="m_actionNewMap"/>
+   <addaction name="m_pActionOpen"/>
+   <addaction name="m_pActionSave"/>
+   <addaction name="separator"/>
+   <addaction name="m_pActionSelect"/>
+   <addaction name="m_pActionMove"/>
+   <addaction name="m_pActionRotation"/>
+   <addaction name="m_pActionScale"/>
+   <addaction name="separator"/>
+   <addaction name="m_actionPathFind"/>
+   <addaction name="m_actionBuildLightmap"/>
+   <addaction name="separator"/>
+   <addaction name="m_actionWireFrame"/>
+   <addaction name="m_actionNormal"/>
+   <addaction name="m_actionSwitch_to_Game"/>
+   <addaction name="separator"/>
+   <addaction name="m_actionCombination"/>
+   <addaction name="m_actionWorldMap"/>
+  </widget>
+  <action name="m_pActionAbout">
+   <property name="icon">
+    <iconset resource="App.qrc">
+     <normaloff>:/icon/Icon/Image 3560.png</normaloff>:/icon/Icon/Image 3560.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+  </action>
+  <action name="m_pActionOpen">
+   <property name="icon">
+    <iconset resource="App.qrc">
+     <normaloff>:/icon/Icon/Open.png</normaloff>:/icon/Icon/Open.png</iconset>
+   </property>
+   <property name="text">
+    <string>打开</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="m_pActionSave">
+   <property name="icon">
+    <iconset resource="App.qrc">
+     <normaloff>:/icon/Icon/save.png</normaloff>:/icon/Icon/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>保存</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="m_pActionSelect">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="App.qrc">
+     <normaloff>:/icon/Icon/cursor-arrow.png</normaloff>:/icon/Icon/cursor-arrow.png</iconset>
+   </property>
+   <property name="text">
+    <string>select</string>
+   </property>
+   <property name="toolTip">
+    <string>select model</string>
+   </property>
+  </action>
+  <action name="m_pActionMove">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="App.qrc">
+     <normaloff>:/icon/Icon/move.png</normaloff>:/icon/Icon/move.png</iconset>
+   </property>
+   <property name="text">
+    <string>move</string>
+   </property>
+   <property name="toolTip">
+    <string>move entity</string>
+   </property>
+  </action>
+  <action name="m_pActionRotation">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="App.qrc">
+     <normaloff>:/icon/Icon/rotate.png</normaloff>:/icon/Icon/rotate.png</iconset>
+   </property>
+   <property name="text">
+    <string>rotation</string>
+   </property>
+  </action>
+  <action name="m_pActionScale">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="App.qrc">
+     <normaloff>:/icon/Icon/scale.png</normaloff>:/icon/Icon/scale.png</iconset>
+   </property>
+   <property name="text">
+    <string>scale</string>
+   </property>
+  </action>
+  <action name="m_actionSwitch_to_Game">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="App.qrc">
+     <normaloff>:/icon/Icon/Begin.png</normaloff>:/icon/Icon/Begin.png</iconset>
+   </property>
+   <property name="text">
+    <string>Switch to &amp;Game</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="m_actionCombination">
+   <property name="icon">
+    <iconset resource="App.qrc">
+     <normaloff>:/icon/Icon/72xuanzhuangxiu.png</normaloff>:/icon/Icon/72xuanzhuangxiu.png</iconset>
+   </property>
+   <property name="text">
+    <string>combination</string>
+   </property>
+  </action>
+  <action name="m_actionWorldMap">
+   <property name="icon">
+    <iconset resource="App.qrc">
+     <normaloff>:/icon/Icon/WorldMap.png</normaloff>:/icon/Icon/WorldMap.png</iconset>
+   </property>
+   <property name="text">
+    <string>WorldMap</string>
+   </property>
+   <property name="toolTip">
+    <string>显示世界地图</string>
+   </property>
+   <property name="shortcut">
+    <string>M</string>
+   </property>
+  </action>
+  <action name="m_actionNewMap">
+   <property name="icon">
+    <iconset resource="App.qrc">
+     <normaloff>:/icon/Icon/new.png</normaloff>:/icon/Icon/new.png</iconset>
+   </property>
+   <property name="text">
+    <string>新建</string>
+   </property>
+   <property name="toolTip">
+    <string>NewMap</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="m_skinDefault">
+   <property name="text">
+    <string>Default</string>
+   </property>
+  </action>
+  <action name="m_skinClassic">
+   <property name="text">
+    <string>Classic</string>
+   </property>
+  </action>
+  <action name="m_skinCustom">
+   <property name="text">
+    <string>Custom</string>
+   </property>
+  </action>
+  <action name="m_actionBuildLightmap">
+   <property name="icon">
+    <iconset resource="App.qrc">
+     <normaloff>:/icon/Icon/BuildLighting.png</normaloff>:/icon/Icon/BuildLighting.png</iconset>
+   </property>
+   <property name="text">
+    <string>光照</string>
+   </property>
+   <property name="toolTip">
+    <string>构建光照</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+L</string>
+   </property>
+  </action>
+  <action name="m_actionNavigationMesh">
+   <property name="text">
+    <string>导航图</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+N</string>
+   </property>
+  </action>
+  <action name="m_actionTextureTool">
+   <property name="text">
+    <string>纹理工具</string>
+   </property>
+   <property name="toolTip">
+    <string>纹理查看编辑工具</string>
+   </property>
+  </action>
+  <action name="m_actionContentBrowser">
+   <property name="text">
+    <string>内容浏览器</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+F</string>
+   </property>
+  </action>
+  <action name="m_actionImportCurScene">
+   <property name="text">
+    <string>导入到当前场景</string>
+   </property>
+  </action>
+  <action name="m_actionExportNavigationMesh">
+   <property name="text">
+    <string>Navigation Mesh</string>
+   </property>
+  </action>
+  <action name="m_actionPathFind">
+   <property name="icon">
+    <iconset resource="App.qrc">
+     <normaloff>:/icon/Icon/PathFind.png</normaloff>:/icon/Icon/PathFind.png</iconset>
+   </property>
+   <property name="text">
+    <string>路径查找</string>
+   </property>
+  </action>
+  <action name="m_actionExit">
+   <property name="text">
+    <string>退出(&amp;Q)</string>
+   </property>
+   <property name="toolTip">
+    <string>退出</string>
+   </property>
+  </action>
+  <action name="m_actionShaderEdit">
+   <property name="text">
+    <string>着色器编辑器</string>
+   </property>
+   <property name="toolTip">
+    <string>Shader查看编辑工具</string>
+   </property>
+  </action>
+  <action name="m_actionWireFrame">
+   <property name="icon">
+    <iconset resource="App.qrc">
+     <normaloff>:/icon/Icon/wire.bmp</normaloff>:/icon/Icon/wire.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>线框 | Alt+2</string>
+   </property>
+   <property name="toolTip">
+    <string>以线框模型查看场景</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+1</string>
+   </property>
+  </action>
+  <action name="m_actionNormal">
+   <property name="icon">
+    <iconset resource="App.qrc">
+     <normaloff>:/icon/Icon/solid.bmp</normaloff>:/icon/Icon/solid.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>正常 | Alt+2</string>
+   </property>
+  </action>
+  <action name="m_actionGrassPlant">
+   <property name="text">
+    <string>草地种植</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+G</string>
+   </property>
+  </action>
+  <action name="m_actionLightmass">
+   <property name="icon">
+    <iconset resource="App.qrc">
+     <normaloff>:/icon/Icon/StaticMesh.png</normaloff>:/icon/Icon/StaticMesh.png</iconset>
+   </property>
+   <property name="text">
+    <string>全局光照</string>
+   </property>
+  </action>
+  <action name="m_actionPropertys">
+   <property name="text">
+    <string>选项</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="App.qrc"/>
+ </resources>
+ <connections/>
+</ui>

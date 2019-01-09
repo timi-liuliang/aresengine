@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LMMainWindow</class>
+ <widget class="QMainWindow" name="LMMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="acceptDrops">
+   <bool>true</bool>
+  </property>
+  <property name="windowTitle">
+   <string>Ligthmass</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QTabWidget" name="m_mainWidget">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Result</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QGraphicsView" name="m_graphicsView"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Pbrt</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QTextEdit" name="m_pbrtTextEdit"/>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="m_progressBar">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(71, 105, 255);</string>
+          </property>
+          <property name="value">
+           <number>24</number>
+          </property>
+          <property name="textVisible">
+           <bool>true</bool>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="invertedAppearance">
+           <bool>false</bool>
+          </property>
+          <property name="textDirection">
+           <enum>QProgressBar::TopToBottom</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextBrowser" name="m_outPut">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>150</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFIle">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <widget class="QMenu" name="m_actionRecentFiles">
+     <property name="title">
+      <string>&amp;Recent Files</string>
+     </property>
+    </widget>
+    <addaction name="m_actionNew"/>
+    <addaction name="m_actionOpen"/>
+    <addaction name="m_actionRecentFiles"/>
+    <addaction name="separator"/>
+    <addaction name="m_actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout_Lightmass"/>
+   </widget>
+   <widget class="QMenu" name="menuRun">
+    <property name="title">
+     <string>Run</string>
+    </property>
+    <addaction name="m_actionBuild"/>
+    <addaction name="m_actionReBuild"/>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <widget class="QMenu" name="m_actionSkin">
+     <property name="title">
+      <string>&amp;Skins</string>
+     </property>
+     <addaction name="m_actionSutra"/>
+    </widget>
+    <addaction name="m_actionSkin"/>
+   </widget>
+   <addaction name="menuFIle"/>
+   <addaction name="menuRun"/>
+   <addaction name="menuSettings"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="m_actionNew"/>
+   <addaction name="m_actionOpen"/>
+   <addaction name="m_actionSave"/>
+   <addaction name="separator"/>
+   <addaction name="m_actionBuild"/>
+   <addaction name="m_actionReBuild"/>
+  </widget>
+  <action name="m_actionOpen">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/Open.png</normaloff>:/icon/Icon/Open.png</iconset>
+   </property>
+   <property name="text">
+    <string>open</string>
+   </property>
+   <property name="toolTip">
+    <string>打开</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="m_actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionAbout_Lightmass">
+   <property name="text">
+    <string>About Lightmass</string>
+   </property>
+  </action>
+  <action name="m_actionSave">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/save.png</normaloff>:/icon/Icon/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="m_actionBuild">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/Compile.png</normaloff>:/icon/Icon/Compile.png</iconset>
+   </property>
+   <property name="text">
+    <string>Build</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
+  </action>
+  <action name="m_actionNew">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/new.png</normaloff>:/icon/Icon/new.png</iconset>
+   </property>
+   <property name="text">
+    <string>New</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="m_actionReBuild">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/d_play.png</normaloff>:/icon/Icon/d_play.png</iconset>
+   </property>
+   <property name="text">
+    <string>ReBuild</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F5</string>
+   </property>
+  </action>
+  <action name="actionSkin">
+   <property name="text">
+    <string>Skin</string>
+   </property>
+  </action>
+  <action name="m_actionSutra">
+   <property name="text">
+    <string>sutra</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../App.qrc"/>
+ </resources>
+ <connections/>
+</ui>

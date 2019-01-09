@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SHMainWindow</class>
+ <widget class="QMainWindow" name="SHMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1157</width>
+    <height>709</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ShaderEditor</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>:/EditorRes/image/05.png</normaloff>:/EditorRes/image/05.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1157</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="m_actionNew"/>
+    <addaction name="m_pActionOpen"/>
+    <addaction name="m_pActionSave"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="m_pActionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuBuild">
+    <property name="title">
+     <string>&amp;Build</string>
+    </property>
+    <addaction name="m_pActionCompile"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menuBuild"/>
+   <addaction name="menu_Help"/>
+  </widget>
+  <widget class="QToolBar" name="m_toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>15</width>
+     <height>15</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="m_actionNew"/>
+   <addaction name="m_pActionOpen"/>
+   <addaction name="m_pActionSave"/>
+   <addaction name="separator"/>
+   <addaction name="m_pActionCompile"/>
+  </widget>
+  <action name="m_pActionSave">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/save.png</normaloff>:/icon/Icon/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="toolTip">
+    <string>保存当前编辑模型信息</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="m_pActionAbout">
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+   <property name="toolTip">
+    <string>About the Ares</string>
+   </property>
+  </action>
+  <action name="m_pActionCompile">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/Compile.png</normaloff>:/icon/Icon/Compile.png</iconset>
+   </property>
+   <property name="text">
+    <string>Compile</string>
+   </property>
+   <property name="toolTip">
+    <string>compile</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
+  </action>
+  <action name="m_pActionOpen">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/Open.png</normaloff>:/icon/Icon/Open.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="m_actionNew">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/new.png</normaloff>:/icon/Icon/new.png</iconset>
+   </property>
+   <property name="text">
+    <string>New</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../App.qrc"/>
+ </resources>
+ <connections/>
+</ui>

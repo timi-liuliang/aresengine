@@ -1,0 +1,14 @@
+<!--note
+		1.headers -title
+		2.item    -standItem attribute
+              property - propery name
+              widget   - widget type use for edit
+-->
+<cfg>
+  <headers>
+    <header text="Property" />
+    <header text="Value" />
+  </headers>
+  <item text="Graphics" row="0" col="0" bold="1">
+  </item>
+</cfg>

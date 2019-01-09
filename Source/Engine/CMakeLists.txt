@@ -1,0 +1,806 @@
+# 库依赖
+MESSAGE(STATUS "AresPhysics 3rdParty Dependences:")
+FIND_PACKAGE(Boost 1.5.2 REQUIRED)
+MESSAGE(STATUS "Boost Include Directory:" ${Boost_INCLUDE_DIRS})
+MESSAGE(STATUS "Boost Library Directory:" ${Boost_LIBRARY_DIRS})
+
+# 附加包含目录
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/Include)
+
+# 附加库目录
+LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
+
+# 添加预处理器
+IF(WIN32)
+	ADD_DEFINITIONS(-DPLATFORM_WIN32)
+	ADD_DEFINITIONS(-DMYGUI_USE_FREETYPE)
+ELSEIF(APPLE)
+	IF(${CMAKE_OSX_SYSROOT} MATCHES "MacOSX.platform")
+		ADD_DEFINITIONS(-DPLATFORM_MAC)
+	ELSE()
+		ADD_DEFINITIONS(-DPLATFORM_IOS)
+        
+        # add library for ois inputsystem
+        SET(FOUNDATIONFRAMEWORK_INCLUDE_DIR ${CMAKE_OSX_SYSROOT}/System/Library/Frameworks/CoreFoundation.framework/Headers)
+        SET(FOUNDATIONFRAMEWORK_LIBRARY_DIR ${CMAKE_OSX_SYSROOT}/System/Library/Frameworks/CoreFoundation.framework)
+        MESSAGE(STATUS "Foundation")	
+        MESSAGE(STATUS "Foundation Include Directory:" ${FOUNDATIONFRAMEWORK_INCLUDE_DIR})
+        MESSAGE(STATUS "Foundation Library Directory:" ${FOUNDATIONFRAMEWORK_LIBRARY_DIR})
+    
+    	# ∏Ωº”∞¸∫¨ƒø¬º
+        INCLUDE_DIRECTORIES(${FOUNDATIONFRAMEWORK_INCLUDE_DIR})
+
+        # ∏Ωº”ø‚ƒø¬º
+        LINK_DIRECTORIES(${FOUNDATIONFRAMEWORK_LIBRARY_DIR})
+	ENDIF()
+ENDIF()
+
+# VS配置 http://www.oschina.net/code/explore/mariadb-5.2.4/CMakeLists.txt
+IF(MSVC)
+	# 禁用特定警告
+	SET(CMAKE_CXX_FLAGS_DEBUG			"${CMAKE_CXX_FLAGS_DEBUG} /wd4996 /wd4819 /MP")
+    SET(CMAKE_CXX_FLAGS_RELEASE			"${CMAKE_CXX_FLAGS_RELEASE} /wd4996 /wd4819 /MP")
+    SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO	"${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /wd4996 /wd4819")
+    SET(CMAKE_C_FLAGS_DEBUG				"${CMAKE_C_FLAGS_DEBUG} /wd4996 /wd4819")
+    SET(CMAKE_C_FLAGS_RELEASE			"${CMAKE_C_FLAGS_RELEASE} /wd4996 /wd4819")
+    SET(CMAKE_C_FLAGS_RELWITHDEBINFO	"${CMAKE_C_FLAGS_RELWITHDEBINFO} /wd4996 /wd4819")
+
+	# MT MTD
+	STRING(REPLACE "/MD"  "/MT"  CMAKE_C_FLAGS_RELEASE          ${CMAKE_C_FLAGS_RELEASE})
+    STRING(REPLACE "/MD"  "/MT"  CMAKE_C_FLAGS_RELWITHDEBINFO   ${CMAKE_C_FLAGS_RELWITHDEBINFO})
+    STRING(REPLACE "/MDd" "/MTd" CMAKE_C_FLAGS_DEBUG            ${CMAKE_C_FLAGS_DEBUG})
+    STRING(REPLACE "/MDd" "/MTd" CMAKE_C_FLAGS_DEBUG_INIT       ${CMAKE_C_FLAGS_DEBUG_INIT})
+    STRING(REPLACE "/MD"  "/MT"  CMAKE_CXX_FLAGS_RELEASE        ${CMAKE_CXX_FLAGS_RELEASE})
+    STRING(REPLACE "/MD"  "/MT"  CMAKE_CXX_FLAGS_RELWITHDEBINFO ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
+    STRING(REPLACE "/MDd" "/MTd" CMAKE_CXX_FLAGS_DEBUG          ${CMAKE_CXX_FLAGS_DEBUG})
+    STRING(REPLACE "/MDd" "/MTd" CMAKE_CXX_FLAGS_DEBUG_INIT     ${CMAKE_CXX_FLAGS_DEBUG_INIT})
+ENDIF(MSVC)
+
+# 设置模块名称
+SET(MODULE_NAME Engine)
+
+# 源文件路径
+SET(MODULE_HEADER_PATH ${PROJECT_SOURCE_DIR}/Include/${MODULE_NAME})
+SET(MODULE_SOURCE_PATH ${PROJECT_SOURCE_DIR}/Source/${MODULE_NAME})
+
+# Foundation
+SET(GROUP_FOUNDATION_SOURCE_FILES
+	${MODULE_HEADER_PATH}/Foundation/Ares3DEngine_h.h
+	${MODULE_HEADER_PATH}/Foundation/AresAllocatorCallback.h
+	${MODULE_HEADER_PATH}/Foundation/AresComponent.h
+	${MODULE_HEADER_PATH}/Foundation/AresPlugin.h
+	${MODULE_HEADER_PATH}/Foundation/AresSerialization.h
+)
+SOURCE_GROUP("Foundation" FILES ${GROUP_FOUNDATION_SOURCE_FILES})
+
+# CameraSystem
+SET(GROUP_CAMERASYSTEM_SOURCE_FILES
+	${MODULE_HEADER_PATH}/CameraSystem/AresCameraSystem.h
+	${MODULE_SOURCE_PATH}/CameraSystem/AresCameraSystem.cpp
+)
+SOURCE_GROUP("CameraSystem" FILES ${GROUP_CAMERASYSTEM_SOURCE_FILES})
+
+# FxSystem
+SET(GROUP_FXSYSTEM_FXENTITY_SOURCE_FILES
+	${MODULE_HEADER_PATH}/FxSystem/AresFxEntity.h
+	${MODULE_SOURCE_PATH}/FxSystem/AresFxEntity.cpp
+)
+SET(GROUP_FXSYSTEM_RENDERABLE_SOURCE_FILES
+	${MODULE_HEADER_PATH}/FxSystem/AresFxRenderable.h
+	${MODULE_SOURCE_PATH}/FxSystem/AresFxRenderable.cpp
+)
+SET(GROUP_FXSYSTEM_3DPATCH_SOURCE_FILES
+	${MODULE_HEADER_PATH}/FxSystem/AresFx3DPatch.h
+	${MODULE_SOURCE_PATH}/FxSystem/AresFx3DPatch.cpp
+)
+SET(GROUP_FXSYSTEM_PARTICLE_CORE_SOURCE_FILES
+	${MODULE_HEADER_PATH}/FxSystem/AresFxModel.h
+	${MODULE_HEADER_PATH}/FxSystem/AresFxParticle.h
+	${MODULE_HEADER_PATH}/FxSystem/Pool.h
+	${MODULE_SOURCE_PATH}/FxSystem/AresFxModel.cpp
+	${MODULE_SOURCE_PATH}/FxSystem/AresFxParticle.cpp
+)
+SET(GROUP_FXSYSTEM_PARTICLE_EMITTERS_SOURCE_FILES
+	${MODULE_HEADER_PATH}/FxSystem/AresFxEmitter.h
+	${MODULE_HEADER_PATH}/FxSystem/NormalEmitter.h
+	${MODULE_HEADER_PATH}/FxSystem/RandomEmitter.h
+	${MODULE_HEADER_PATH}/FxSystem/SphericEmitter.h
+	${MODULE_HEADER_PATH}/FxSystem/StaticEmitter.h
+	${MODULE_HEADER_PATH}/FxSystem/StraightEmitter.h
+	${MODULE_SOURCE_PATH}/FxSystem/AresFxEmitter.cpp
+	${MODULE_SOURCE_PATH}/FxSystem/NormalEmitter.cpp
+	${MODULE_SOURCE_PATH}/FxSystem/RandomEmitter.cpp
+	${MODULE_SOURCE_PATH}/FxSystem/SphericEmitter.cpp
+	${MODULE_SOURCE_PATH}/FxSystem/StaticEmitter.cpp
+	${MODULE_SOURCE_PATH}/FxSystem/StraightEmitter.cpp
+)
+SET(GROUP_FXSYSTEM_PARTICLE_INTERPOLATE_SOURCE_FILES
+	${MODULE_HEADER_PATH}/FxSystem/AresFxInterpolater.h
+	${MODULE_HEADER_PATH}/FxSystem/AresFxModelInterpolater.h
+	${MODULE_SOURCE_PATH}/FxSystem/AresFxInterpolater.cpp
+	${MODULE_SOURCE_PATH}/FxSystem/AresFxModelInterpolater.cpp
+)
+SET(GROUP_FXSYSTEM_PARTICLE_MODIFY_SOURCE_SYSTEM
+	${MODULE_HEADER_PATH}/FxSystem/AresFxModifier.h
+	${MODULE_HEADER_PATH}/FxSystem/Obstacle.h
+	${MODULE_SOURCE_PATH}/FxSystem/AresFxModifier.cpp
+	${MODULE_SOURCE_PATH}/FxSystem/Obstacle.cpp
+)
+SET(GROUP_FXSYSTEM_PARTICLE_ZONE_SOURCE_SYSTEM
+	${MODULE_HEADER_PATH}/FxSystem/AresFxZone.h
+	${MODULE_HEADER_PATH}/FxSystem/Box3Zone.h
+	${MODULE_HEADER_PATH}/FxSystem/PlaneZone.h
+	${MODULE_HEADER_PATH}/FxSystem/PointZone.h
+	${MODULE_SOURCE_PATH}/FxSystem/AresFxZone.cpp
+	${MODULE_SOURCE_PATH}/FxSystem/Box3Zone.cpp
+	${MODULE_SOURCE_PATH}/FxSystem/PlaneZone.cpp
+	${MODULE_SOURCE_PATH}/FxSystem/PointZone.cpp
+)
+SET(GROUP_FXSYSTEM_PARTICLE_SOURCE_SYSTEM
+	${MODULE_HEADER_PATH}/FxSystem/AresFxParticleSystem.h
+	${MODULE_SOURCE_PATH}/FxSystem/AresFxParticleSystem.cpp
+)
+SET(GROUP_FXSYSTEM_OBJECT_SOURCE_SYSTEM 
+	${MODULE_HEADER_PATH}/FxSystem/AresFxObject.h
+	${MODULE_SOURCE_PATH}/FxSystem/AresFxObject.cpp
+)
+# 贴花
+SET(GROUP_FXSYSTEM_DECAL_SOURCE_FILES
+	${MODULE_HEADER_PATH}/FxSystem/AresFxDecal.h
+	${MODULE_SOURCE_PATH}/FxSystem/AresFxDecal.cpp
+)
+SET(GROUP_FXSYSTEM_SOURCE_FILES
+	${MODULE_HEADER_PATH}/FxSystem/AresFxSystem.h
+	${MODULE_SOURCE_PATH}/FxSystem/AresFxSystem.cpp
+)
+
+SET(GROUP_FXSYSTEM_ALL_SOURCE_FILES
+	${GROUP_FXSYSTEM_FXENTITY_SOURCE_FILES}
+	${GROUP_FXSYSTEM_RENDERABLE_SOURCE_FILES}
+	${GROUP_FXSYSTEM_3DPATCH_SOURCE_FILES}
+	${GROUP_FXSYSTEM_PARTICLE_CORE_SOURCE_FILES}
+	${GROUP_FXSYSTEM_PARTICLE_EMITTERS_SOURCE_FILES}
+	${GROUP_FXSYSTEM_PARTICLE_INTERPOLATE_SOURCE_FILES}
+	${GROUP_FXSYSTEM_PARTICLE_MODIFY_SOURCE_SYSTEM}
+	${GROUP_FXSYSTEM_PARTICLE_ZONE_SOURCE_SYSTEM}
+	${GROUP_FXSYSTEM_PARTICLE_SOURCE_SYSTEM}
+	${GROUP_FXSYSTEM_OBJECT_SOURCE_SYSTEM}
+	${GROUP_FXSYSTEM_DECAL_SOURCE_FILES}
+	${GROUP_FXSYSTEM_SOURCE_FILES}
+)
+
+SOURCE_GROUP("FxSystem"									FILES ${GROUP_FXSYSTEM_SOURCE_FILES})
+SOURCE_GROUP("FxSystem\\FxEntity"						FILES ${GROUP_FXSYSTEM_FXENTITY_SOURCE_FILES})
+SOURCE_GROUP("FxSystem\\Objects"						FILES ${GROUP_FXSYSTEM_OBJECT_SOURCE_SYSTEM})
+SOURCE_GROUP("FxSystem\\Objects\\Render"				FILES ${GROUP_FXSYSTEM_RENDERABLE_SOURCE_FILES})
+SOURCE_GROUP("FxSystem\\Objects\\3DPatch"				FILES ${GROUP_FXSYSTEM_3DPATCH_SOURCE_FILES})
+SOURCE_GROUP("FxSystem\\Objects\\Decal"					FILES ${GROUP_FXSYSTEM_DECAL_SOURCE_FILES})
+SOURCE_GROUP("FxSystem\\Objects\\Particle"				FILES ${GROUP_FXSYSTEM_PARTICLE_SOURCE_SYSTEM})
+SOURCE_GROUP("FxSystem\\Objects\\Particle\\Core"		FILES ${GROUP_FXSYSTEM_PARTICLE_CORE_SOURCE_FILES})
+SOURCE_GROUP("FxSystem\\Objects\\Particle\\Emitters"	FILES ${GROUP_FXSYSTEM_PARTICLE_EMITTERS_SOURCE_FILES})
+SOURCE_GROUP("FxSystem\\Objects\\Particle\\Interpolate" FILES ${GROUP_FXSYSTEM_PARTICLE_INTERPOLATE_SOURCE_FILES})
+SOURCE_GROUP("FxSystem\\Objects\\Particle\\Modifier"	FILES ${GROUP_FXSYSTEM_PARTICLE_MODIFY_SOURCE_SYSTEM})
+SOURCE_GROUP("FxSystem\\Objects\\Particle\\Zone"		FILES ${GROUP_FXSYSTEM_PARTICLE_ZONE_SOURCE_SYSTEM})
+
+# InputSystem
+IF(WIN32)
+	SET(GROUP_INPUTSYSTEM_SOURCE_FILES
+		${MODULE_HEADER_PATH}/InputSystem/OIS.h
+		${MODULE_HEADER_PATH}/InputSystem/OISInputSystem.h
+		${MODULE_SOURCE_PATH}/InputSystem/OISInputSystem.cpp
+	)
+	SET(GROUP_INPUTSYSTEM_CORE_SOURCE_FILES
+		${MODULE_HEADER_PATH}/InputSystem/OISConfig.h
+		${MODULE_HEADER_PATH}/InputSystem/OISEffect.h
+		${MODULE_HEADER_PATH}/InputSystem/OISEvents.h
+		${MODULE_HEADER_PATH}/InputSystem/OISException.h
+		${MODULE_HEADER_PATH}/InputSystem/OISFactoryCreator.h
+		${MODULE_HEADER_PATH}/InputSystem/OISForceFeedback.h
+		${MODULE_HEADER_PATH}/InputSystem/OISInterface.h
+		${MODULE_HEADER_PATH}/InputSystem/OISJoyStick.h
+		${MODULE_HEADER_PATH}/InputSystem/OISKeyboard.h
+		${MODULE_HEADER_PATH}/InputSystem/OISMouse.h
+		${MODULE_HEADER_PATH}/InputSystem/OISObject.h
+		${MODULE_HEADER_PATH}/InputSystem/OISPrereqs.h
+		${MODULE_SOURCE_PATH}/InputSystem/OISEffect.cpp
+		${MODULE_SOURCE_PATH}/InputSystem/OISException.cpp
+		${MODULE_SOURCE_PATH}/InputSystem/OISForceFeedback.cpp
+		${MODULE_SOURCE_PATH}/InputSystem/OISJoyStick.cpp
+		${MODULE_SOURCE_PATH}/InputSystem/OISKeyboard.cpp
+		${MODULE_SOURCE_PATH}/InputSystem/OISMouse.cpp
+		${MODULE_SOURCE_PATH}/InputSystem/OISObject.cpp
+	)
+	SOURCE_GROUP("InputSystem" 			FILES ${GROUP_INPUTSYSTEM_SOURCE_FILES})
+	SOURCE_GROUP("InputSystem\\Core"	FILES ${GROUP_INPUTSYSTEM_CORE_SOURCE_FILES})
+	SET(GROUP_INPUTSTYSTEM_PLATFORM_SOURCE_FILES
+		${MODULE_HEADER_PATH}/InputSystem/Win32/Win32ForceFeedback.h
+		${MODULE_HEADER_PATH}/InputSystem/Win32/Win32InputManager.h
+		${MODULE_HEADER_PATH}/InputSystem/Win32/Win32JoyStick.h
+		${MODULE_HEADER_PATH}/InputSystem/Win32/Win32KeyBoard.h
+		${MODULE_HEADER_PATH}/InputSystem/Win32/Win32Mouse.h
+		${MODULE_HEADER_PATH}/InputSystem/Win32/Win32Prereqs.h
+		${MODULE_SOURCE_PATH}/InputSystem/Win32/Win32ForceFeedback.cpp
+		${MODULE_SOURCE_PATH}/InputSystem/Win32/Win32InputManager.cpp
+		${MODULE_SOURCE_PATH}/InputSystem/Win32/Win32JoyStick.cpp
+		${MODULE_SOURCE_PATH}/InputSystem/Win32/Win32KeyBoard.cpp
+		${MODULE_SOURCE_PATH}/InputSystem/Win32/Win32Mouse.cpp
+	)
+	SOURCE_GROUP("InputSystem\\Win32" FILES ${GROUP_INPUTSTYSTEM_PLATFORM_SOURCE_FILES})
+ELSEIF(APPLE)
+	IF(${CMAKE_OSX_SYSROOT} MATCHES "MacOSX.platform")
+		SET(GROUP_INPUTSTYSTEM_WIN32_SOURCE_FILES)
+	ELSE()
+		#SET(GROUP_INPUTSTYSTEM_PLATFORM_SOURCE_FILES
+		#	${MODULE_SOURCE_PATH}/InputSystem/iphone/iPhoneAccelerometer.h
+		#	${MODULE_SOURCE_PATH}/InputSystem/iphone/iPhoneAccelerometer.mm
+		#	${MODULE_SOURCE_PATH}/InputSystem/iphone/iPhoneHelpers.h
+		#	${MODULE_SOURCE_PATH}/InputSystem/iphone/iPhoneInputManager.h
+		#	${MODULE_SOURCE_PATH}/InputSystem/iphone/iPhoneInputManager.mm
+		#	${MODULE_SOURCE_PATH}/InputSystem/iphone/iPhoneMultiTouch.h
+		#	${MODULE_SOURCE_PATH}/InputSystem/iphone/iPhoneMultiTouch.mm
+		#	${MODULE_SOURCE_PATH}/InputSystem/iphone/iPhonePrereqs.h
+        #)
+        SOURCE_GROUP("InputSystem\\iphone" FILES ${GROUP_INPUTSTYSTEM_PLATFORM_SOURCE_FILES})
+	ENDIF()
+ENDIF()
+
+#PhysicsSystem
+SET(GROUP_PHYSICSSYSTEM_DESTRUCTION_SOURCE_FILES
+	${MODULE_HEADER_PATH}/PhysicsSystem/AresDestructionMgr.h
+	${MODULE_SOURCE_PATH}/PhysicsSystem/AresDestructionMgr.cpp
+)
+SET(GROUP_PHYSICSSYSTEM_ENTITY_SOURCE_FILES
+	${MODULE_HEADER_PATH}/PhysicsSystem/AresPhysicsEntity.h
+	${MODULE_SOURCE_PATH}/PhysicsSystem/AresPhysicsEntity.cpp
+)
+SET(GROUP_COLLISIONOBJECT_USERDATA_SOURCE_FILES
+	${MODULE_HEADER_PATH}/PhysicsSystem/AresCollisionObjectUserData.h
+	${MODULE_SOURCE_PATH}/PhysicsSystem/AresCollisionObjectUserData.cpp
+)
+SOURCE_GROUP("PhysicsSystem\\Destruction" FILES ${GROUP_PHYSICSSYSTEM_DESTRUCTION_SOURCE_FILES})
+SOURCE_GROUP("PhysicsSystem\\Entity"	  FILES ${GROUP_PHYSICSSYSTEM_ENTITY_SOURCE_FILES})
+SOURCE_GROUP("PhysicsSystem\\UserData"	  FILES ${GROUP_COLLISIONOBJECT_USERDATA_SOURCE_FILES})
+
+# ResSystem
+SET(GROUP_RESSYSTEM_SOURCE_FILES
+	${MODULE_HEADER_PATH}/ResSystem/AresResSystem.h
+	${MODULE_SOURCE_PATH}/ResSystem/AresResSystem.cpp
+)
+SOURCE_GROUP("ResSystem"	FILES ${GROUP_RESSYSTEM_SOURCE_FILES})
+
+# RenderSystem
+SET(GROUP_RENDERSYSTEM_HDR_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/AresHDREncode.h
+	${MODULE_SOURCE_PATH}/RenderSystem/AresHDREncode.cpp
+)
+SET(GROUP_RENDERSYSTEM_LIGHT_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/AresLight.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresDirectionalLight.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresPointLight.h
+	${MODULE_SOURCE_PATH}/RenderSystem/AresLight.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresDirectionalLight.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresPointLight.cpp
+)
+SET(GROUP_RENDERSYSTEM_MATERIAL_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/SuperMaterial.h
+	${MODULE_HEADER_PATH}/RenderSystem/SuperMaterialCompiler.h
+	${MODULE_HEADER_PATH}/RenderSystem/SuperMaterialD3D11Compiler.h
+	${MODULE_HEADER_PATH}/RenderSystem/SuperMaterialExpression.h
+	${MODULE_HEADER_PATH}/RenderSystem/SuperMaterialShaderTree.h
+	${MODULE_SOURCE_PATH}/RenderSystem/SuperMaterial.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/SuperMaterialCompiler.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/SuperMaterialD3D11Compiler.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/SuperMaterialExpression.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/SuperMaterialShaderTree.cpp
+)
+IF(WIN32)
+	SET(GROUP_RENDERSYSTEM_MEDIA_SOURCE_FILES
+		${MODULE_HEADER_PATH}/RenderSystem/AresVp8Decoder.h
+		${MODULE_HEADER_PATH}/RenderSystem/AresVp8Encoder.h
+		${MODULE_SOURCE_PATH}/RenderSystem/AresVp8Decoder.cpp
+		${MODULE_SOURCE_PATH}/RenderSystem/AresVp8Encoder.cpp
+	)
+ELSE()
+	SET(GROUP_RENDERSYSTEM_MEDIA_SOURCE_FILES)
+ENDIF()
+
+SET(GROUP_RENDERSYSTEM_MGR_CSMMGR_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/CSMMgr.h
+	${MODULE_SOURCE_PATH}/RenderSystem/CSMMgr.cpp
+)
+SET(GROUP_RENDRESYSTEM_MGR_DEFERRED_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/DeferredRenderingMgr.h
+	${MODULE_SOURCE_PATH}/RenderSystem/DeferredRenderingMgr.cpp
+)
+SET(GROUP_RENDERSYSTEM_MGR_ZWRITE_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/ZRenderable.h
+	${MODULE_HEADER_PATH}/RenderSystem/ZWriteMgr.h
+	${MODULE_SOURCE_PATH}/RenderSystem/ZRenderable.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/ZWriteMgr.cpp
+)
+SET(GROUP_RENDRESYSTEM_MODEL_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/AresAnimationController.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresModelIDCard.h
+	${MODULE_HEADER_PATH}/RenderSystem/Attachment.h
+	${MODULE_HEADER_PATH}/RenderSystem/M1Animation.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresMesh.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresModel.h
+	${MODULE_SOURCE_PATH}/RenderSystem/AresAnimationController.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresModelIDCard.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/Attachment.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/M1Animation.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresMesh.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresModel.cpp
+)
+SET(GROUP_RENDERSYSTEM_POSTPROCESS_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/AresCpuTextureFilter.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresDeferredLighting.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresDeferredShading.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresDepthOfField.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresEdgePadding.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresFloodColor.h
+	${MODULE_HEADER_PATH}/RenderSystem/FloodColorRenderable.h
+	${MODULE_HEADER_PATH}/RenderSystem/FloodColorRenderMgr.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresGaussianBlur.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresGodRay.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresGrayscale.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresFXAA.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresToneMapping.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresSpaceDistorted.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresFrameFilter.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresPostProcessChain.h
+	${MODULE_SOURCE_PATH}/RenderSystem/AresCpuTextureFilter.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresDeferredLighting.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresDeferredShading.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresDepthOfField.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresEdgePadding.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/FloodColorRenderable.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/FloodColorRendermgr.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresFloodColor.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresGaussianBlur.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresGodRay.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresGrayscale.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresFXAA.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresToneMapping.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresSpaceDistorted.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresFrameFilter.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresPostProcessChain.cpp
+)
+SET(GROUP_RENDERSSYTEM_RENDERABLE_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/AresRenderable.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresSuperRenderable.h
+	${MODULE_SOURCE_PATH}/RenderSystem/AresRenderable.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresSuperRenderable.cpp
+)
+SET(GROUP_RENDERSYSTEM_RENDERQUEUE_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/AresRenderQueue.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresRenderElementMgr.h
+	${MODULE_SOURCE_PATH}/RenderSystem/AresRenderQueue.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresRenderElementMgr.cpp
+)
+SET(GROUP_RENDERSYSTEM_ENTITY_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/AresRenderEntity.h
+	${MODULE_SOURCE_PATH}/RenderSystem/AresRenderEntity.cpp
+)
+
+SET(GROUP_RENDERSYSTEM_CLOTH_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/AresClothFabric.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresClothFabricBuilder.h
+	${MODULE_SOURCE_PATH}/RenderSystem/AresClothFabric.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresClothFabricBuilder.cpp
+)
+SET(GROUP_RENDERSYSTEM_TERRAIN_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/AresTerrain.h
+	${MODULE_HEADER_PATH}/RenderSystem/AresTerrainTile.h
+	${MODULE_SOURCE_PATH}/RenderSystem/AresTerrain.cpp
+	${MODULE_SOURCE_PATH}/RenderSystem/AresTerrainTile.cpp
+)
+SET(GROUP_RENDERSYSTEM_OCEAN_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/AresOcean.h
+	${MODULE_SOURCE_PATH}/RenderSystem/AresOcean.cpp
+)
+SET(GROUP_RENDERSYSTEM_TEXTURESET_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/AresTextureSet.h
+	${MODULE_SOURCE_PATH}/RenderSystem/AresTextureSet.cpp
+)
+SET(GROUP_RENDERSYSTEM_VISUALSHAPE_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/AresVisualShape.h
+	${MODULE_SOURCE_PATH}/RenderSystem/AresVisualShape.cpp
+)
+SET(GROUP_RENDERSYSTEM_ENTRY_SOURCE_FILES
+	${MODULE_HEADER_PATH}/RenderSystem/AresRenderSystem.h
+	${MODULE_SOURCE_PATH}/RenderSystem/AresRenderSystem.cpp
+)
+
+SET(GROUP_RENDERSYSTEM_ALL_SOURCE_FILES
+	${GROUP_RENDERSYSTEM_HDR_SOURCE_FILES}
+	${GROUP_RENDERSYSTEM_HEADER_SOURCE_FILES}
+	${GROUP_RENDERSYSTEM_LIGHT_SOURCE_FILES}
+	${GROUP_RENDERSYSTEM_MATERIAL_SOURCE_FILES}
+	${GROUP_RENDERSYSTEM_MEDIA_SOURCE_FILES}
+	${GROUP_RENDERSYSTEM_MGR_CSMMGR_SOURCE_FILES}
+	${GROUP_RENDERSYSTEM_MGR_CSMMGR_SOURCE_FILES}
+	${GROUP_RENDRESYSTEM_MGR_DEFERRED_SOURCE_FILES}
+	${GROUP_RENDERSYSTEM_MGR_ZWRITE_SOURCE_FILES}
+	${GROUP_RENDRESYSTEM_MODEL_SOURCE_FILES}
+	${GROUP_RENDERSYSTEM_ENTITY_SOURCE_FILES}
+	${GROUP_RENDERSYSTEM_CLOTH_SOURCE_FILES}
+	${GROUP_RENDERSYSTEM_POSTPROCESS_SOURCE_FILES}
+	${GROUP_RENDERSSYTEM_RENDERABLE_SOURCE_FILES}
+	${GROUP_RENDERSYSTEM_RENDERQUEUE_SOURCE_FILES}
+	${GROUP_RENDERSYSTEM_TERRAIN_SOURCE_FILES}
+	${GROUP_RENDERSYSTEM_OCEAN_SOURCE_FILES}
+	${GROUP_RENDERSYSTEM_TEXTURESET_SOURCE_FILES}
+	${GROUP_RENDERSYSTEM_VISUALSHAPE_SOURCE_FILES}
+	${GROUP_RENDERSYSTEM_ENTRY_SOURCE_FILES}
+)
+SOURCE_GROUP("RenderSystem\\HDR" 						FILES ${GROUP_RENDERSYSTEM_HDR_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\Include"					FILES ${GROUP_RENDERSYSTEM_HEADER_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\Light"						FILES ${GROUP_RENDERSYSTEM_LIGHT_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\Media"						FILES ${GROUP_RENDERSYSTEM_MEDIA_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\Mgr\\CSMMgr"				FILES ${GROUP_RENDERSYSTEM_MGR_CSMMGR_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\Mgr\\DeferredRendering"		FILES ${GROUP_RENDRESYSTEM_MGR_DEFERRED_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\Mgr\\ZWriteMgr"				FILES ${GROUP_RENDERSYSTEM_MGR_ZWRITE_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\PostProcess"				FILES ${GROUP_RENDERSYSTEM_POSTPROCESS_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\Renderable"					FILES ${GROUP_RENDERSSYTEM_RENDERABLE_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\Renderable\\SuperMaterial"	FILES ${GROUP_RENDERSYSTEM_MATERIAL_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\RenderQueue"				FILES ${GROUP_RENDERSYSTEM_RENDERQUEUE_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\Entity"						FILES ${GROUP_RENDERSYSTEM_ENTITY_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\Entity\\Cloth"				FILES ${GROUP_RENDERSYSTEM_CLOTH_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\Entity\\Model"				FILES ${GROUP_RENDRESYSTEM_MODEL_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\Entity\\Terrain"			FILES ${GROUP_RENDERSYSTEM_TERRAIN_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\Entity\\Ocean"				FILES ${GROUP_RENDERSYSTEM_OCEAN_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\TextureSet"					FILES ${GROUP_RENDERSYSTEM_TEXTURESET_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem\\VisualShape"				FILES ${GROUP_RENDERSYSTEM_VISUALSHAPE_SOURCE_FILES})
+SOURCE_GROUP("RenderSystem"								FILES ${GROUP_RENDERSYSTEM_ENTRY_SOURCE_FILES})
+
+# SceneSystem
+SET(GROUP_SCENESYSTEM_SOURCE_FILES
+	${MODULE_HEADER_PATH}/SceneSystem/AresScene.h
+	${MODULE_SOURCE_PATH}/SceneSystem/AresScene.cpp
+)
+SET(GROUP_SCENE_SOURCE_FILES
+	${MODULE_HEADER_PATH}/SceneSystem/EntityMotionState.h
+	${MODULE_HEADER_PATH}/SceneSystem/AresEntity.h
+	${MODULE_HEADER_PATH}/SceneSystem/GPIndex.h
+	${MODULE_HEADER_PATH}/SceneSystem/GPTile.h
+	${MODULE_HEADER_PATH}/SceneSystem/GPWorld.h
+	${MODULE_HEADER_PATH}/SceneSystem/LightmapMgr.h
+	${MODULE_HEADER_PATH}/SceneSystem/AresSceneTile.h
+	#${MODULE_HEADER_PATH}/SceneSystem/SceneNode.h
+	${MODULE_SOURCE_PATH}/SceneSystem/AresEntity.cpp
+	${MODULE_SOURCE_PATH}/SceneSystem/GPIndex.cpp
+	${MODULE_SOURCE_PATH}/SceneSystem/GPTile.cpp
+	${MODULE_SOURCE_PATH}/SceneSystem/GPWorld.cpp
+	${MODULE_SOURCE_PATH}/SceneSystem/GPWindow.cpp
+	${MODULE_SOURCE_PATH}/SceneSystem/LightMapMgr.cpp
+	${MODULE_SOURCE_PATH}/SceneSystem/AresSceneTile.cpp
+	#${MODULE_SOURCE_PATH}/SceneSystem/SceneNode.cpp
+)
+SET(GROUP_SCENESYSTEM_FILES
+	${GROUP_SCENE_SOURCE_FILES}
+	${GROUP_SCENESYSTEM_SOURCE_FILES}
+)
+SOURCE_GROUP("SceneSystem\\Scene"	FILES ${GROUP_SCENE_SOURCE_FILES})
+SOURCE_GROUP("SceneSystem"			FILES ${GROUP_SCENESYSTEM_SOURCE_FILES})
+
+# ScriptSystem
+SET(GROUP_SCRIPTSYSTEM_SOURCE_FILES
+	${MODULE_HEADER_PATH}/ScriptSystem/AresLuaArg.h
+	${MODULE_HEADER_PATH}/ScriptSystem/AresLuaScript.h
+	${MODULE_SOURCE_PATH}/ScriptSystem/AresLuaScript.cpp
+)
+SOURCE_GROUP("ScriptSystem" FILES ${GROUP_SCRIPTSYSTEM_SOURCE_FILES})
+
+# SoundSystem
+SET(GROUP_SOUNDSYSTEM_SOURCE_FILES
+	${MODULE_HEADER_PATH}/SoundSystem/AresSoundSystem.h
+	${MODULE_SOURCE_PATH}/SoundSystem/AresSoundSystem.cpp
+)
+IF(WIN32)
+	SET(GROUP_SOUNDSYSTEMWIN32_SOURCE_FILES
+		${MODULE_HEADER_PATH}/SoundSystem/AresWin32SoundSystem.h
+		${MODULE_SOURCE_PATH}/SoundSystem/AresWin32SoundSystem.cpp
+	)
+ELSE()
+	SET(GROUP_SOUNDSYSTEMWIN32_SOURCE_FILES)
+ENDIF()
+
+SET(GROUP_SOUNDSYSTEM_ALL_SOURCE_FILES
+	${GROUP_SOUNDSYSTEM_SOURCE_FILES}
+	${GROUP_SOUNDSYSTEMWIN32_SOURCE_FILES}
+)
+SOURCE_GROUP("SoundSystem" FILES ${GROUP_SOUNDSYSTEM_SOURCE_FILES})
+SOURCE_GROUP("SoundSystem" FILES ${GROUP_SOUNDSYSTEMWIN32_SOURCE_FILES})
+
+# TriggerSystem
+SET(GROUP_TRIGGERSYSTEM_SOURCE_FILES
+)
+SOURCE_GROUP("TriggerSystem" FILES ${GROUP_TRIGGERSYSTEM_SOURCE_FILES})
+
+# 界面系统
+# 包含源文件
+SET(MODULE_UISYSTEM_HEADER_FILES
+	${MODULE_HEADER_PATH}/UISystem/AresUISystem.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ActionController.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Align.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Allocator.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Any.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_BackwardCompatibility.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_BiIndexBase.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Bitwise.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Button.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Canvas.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ChildSkinInfo.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ClipboardManager.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Colour.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ComboBox.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Common.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_CommonStateInfo.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ConsoleLogListener.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Constants.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ControllerEdgeHide.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ControllerFadeAlpha.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ControllerItem.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ControllerManager.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ControllerPosition.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_CoordConverter.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_CustomAllocator.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_DataFileStream.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_DataManager.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_DataStream.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_DDContainer.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_DDItemInfo.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Delegate.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_DelegateImplement.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_DeprecatedTypes.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_DeprecatedWidgets.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Diagnostic.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_EditBox.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_EditText.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Enumerator.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_EventPair.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Exception.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_FactoryManager.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_FlowDirection.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Font.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_FontManager.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_GenericFactory.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_GeometryUtility.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_IBItemInfo.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ICroppedRectangle.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_IDataStream.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_IItem.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_IItemContainer.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ILayer.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ILayerItem.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ILayerNode.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ILogFilter.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ILogListener.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ImageBox.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ImageInfo.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_InputManager.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_IObject.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_IPointer.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_IRenderTarget.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_IResource.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ISerializable.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_IStateInfo.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ISubWidget.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ISubWidgetRect.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ISubWidgetText.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ItemBox.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ITexture.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_IUnlinkWidget.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_IVertexBuffer.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_LanguageManager.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_LayerItem.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_LayerManager.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_LayerNode.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_LayoutManager.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ListBox.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Macros.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_MainSkin.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_MaskPickInfo.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_MenuBar.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_MenuControl.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_MenuItem.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_MenuItemType.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_MultiListBox.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_MultiListItem.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_OverlappedLayer.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Platform.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_PointerManager.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_PolygonalSkin.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_PopupMenu.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Precompiled.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Prerequest.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ProgressBar.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_RenderFormat.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_RenderItem.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_RenderManager.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_RenderTargetInfo.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ResizingPolicy.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ResourceImageSet.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ResourceImageSetData.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ResourceImageSetPointer.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ResourceLayout.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ResourceManager.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ResourceManualFont.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ResourceManualPointer.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ResourceSkin.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ResourceTrueTypeFont.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_RotatingSkin.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_RTTexture.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_RTTI.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ScrollBar.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ScrollView.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ScrollViewBase.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_SharedLayer.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_SharedLayerNode.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_SimpleText.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_SkinItem.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_SkinManager.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_StringUtility.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_SubSkin.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_SubWidgetBinding.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_SubWidgetInfo.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_SubWidgetManager.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_TabControl.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_TabItem.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_TCoord.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_TextBox.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_TextChangeHistory.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_TextIterator.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Texture.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_TextureUtility.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_TextView.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_TextViewData.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_TileRect.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Timer.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_ToolTipManager.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_TPoint.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_TRect.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_TSize.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Types.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_UString.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Version.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_VertexBuffer.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_VertexData.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Widget.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_WidgetDefines.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_WidgetInput.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_WidgetManager.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_WidgetStyle.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_WidgetToolTip.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_WidgetTranslate.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_WidgetUserData.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_Window.h
+	${MODULE_HEADER_PATH}/UISystem/MyGUI_XmlDocument.h	
+)
+
+SET(MODULE_UISYSTEM_SOURCE_FILES
+	${MODULE_SOURCE_PATH}/UISystem/AresUISystem.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ActionController.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_Any.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_BackwardCompatibility.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_BiIndexBase.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_Button.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_Canvas.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ChildSkinInfo.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ClipboardManager.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_Colour.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ComboBox.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_Constants.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ControllerEdgeHide.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ControllerFadeAlpha.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ControllerManager.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ControllerPosition.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_DataFileStream.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_DataManager.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_DataStream.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_DDContainer.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_Diagnostic.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_EditBox.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_EditText.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_Exception.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_FactoryManager.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_FontManager.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_GeometryUtility.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ImageBox.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_InputManager.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ItemBox.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_LanguageManager.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_LayerItem.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_LayerManager.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_LayerNode.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_LayoutManager.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ListBox.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_MainSkin.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_MaskPickInfo.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_MenuBar.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_MenuControl.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_MenuItem.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_MultiListBox.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_MultiListItem.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_OverlappedLayer.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_PointerManager.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_PolygonalSkin.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_PopupMenu.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_Precompiled.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ProgressBar.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_RenderItem.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_RenderManager.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ResourceImageSet.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ResourceImageSetPointer.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ResourceLayout.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ResourceManager.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ResourceManualFont.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ResourceManualPointer.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ResourceSkin.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ResourceTrueTypeFont.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_RotatingSkin.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_RTTexture.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ScrollBar.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ScrollView.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ScrollViewBase.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_SharedLayer.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_SharedLayerNode.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_SimpleText.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_SkinItem.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_SkinManager.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_SubSkin.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_SubWidgetBinding.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_SubWidgetManager.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_TabControl.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_TabItem.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_TextBox.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_TextIterator.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_Texture.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_TextureUtility.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_TextView.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_TileRect.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_Timer.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_ToolTipManager.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_UString.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_VertexBuffer.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_Widget.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_WidgetInput.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_WidgetManager.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_WidgetUserData.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_Window.cpp
+	${MODULE_SOURCE_PATH}/UISystem/MyGUI_XmlDocument.cpp
+)
+
+SOURCE_GROUP("UiSystem\\Header Files" FILES ${MODULE_UISYSTEM_HEADER_FILES})
+SOURCE_GROUP("UiSystem\\Source Files" FILES ${MODULE_UISYSTEM_SOURCE_FILES})
+
+# Root
+SET(GROUP_SOURCE_FILES  ${MODULE_HEADER_PATH}/AresRoot.h ${MODULE_SOURCE_PATH}/AresRoot.cpp)
+SOURCE_GROUP("" FILES ${GROUP_SOURCE_FILES})
+
+# 添加库
+ADD_LIBRARY(Ares3DEngine
+	${GROUP_FOUNDATION_SOURCE_FILES}
+	${GROUP_CAMERASYSTEM_SOURCE_FILES}
+	${GROUP_FXSYSTEM_ALL_SOURCE_FILES}
+	${GROUP_INPUTSYSTEM_SOURCE_FILES}
+	${GROUP_INPUTSYSTEM_CORE_SOURCE_FILES}
+	${GROUP_INPUTSTYSTEM_PLATFORM_SOURCE_FILES}
+	${GROUP_PHYSICSSYSTEM_DESTRUCTION_SOURCE_FILES}
+	${GROUP_PHYSICSSYSTEM_ENTITY_SOURCE_FILES}
+	${GROUP_COLLISIONOBJECT_USERDATA_SOURCE_FILES}
+	${GROUP_RESSYSTEM_SOURCE_FILES}
+	${GROUP_SCRIPTSYSTEM_SOURCE_FILES}
+	${GROUP_SOUNDSYSTEM_ALL_SOURCE_FILES}
+	${GROUP_SCENESYSTEM_FILES}
+	${GROUP_RENDERSYSTEM_ALL_SOURCE_FILES}
+	${MODULE_UISYSTEM_HEADER_FILES}
+	${MODULE_UISYSTEM_SOURCE_FILES}
+	${GROUP_SOURCE_FILES}
+)
+
+# 设置属性
+SET_TARGET_PROPERTIES(Ares3DEngine PROPERTIES FOLDER "Engine")

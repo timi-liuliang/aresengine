@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Ares::IParticleEmitter">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AresEffect.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ares::ITexture" Collapsed="true">
+    <Position X="4.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAICAAAAAAAAAAAAAAhAAAAAAECAAAwgAEACAAA=</HashCode>
+      <FileName>h:\aresengine\sdk\include\aresresource.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ares::CParticleEmitter">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAIIEAQAAQAAAAAAAQCABAEARABAAAAAAIAA=</HashCode>
+      <FileName>ParticleEmitter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ares::CParticleFxPlugin" Collapsed="true">
+    <Position X="4.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAEAAAAAQAAgABAAAAAAAACAAAABAA=</HashCode>
+      <FileName>ParticleFxPlugin.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ares::CObstacle" Collapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAQAAEAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Obstacle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ares::CPointZone" Collapsed="true">
+    <Position X="4.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAgAAAAAAQAIA=</HashCode>
+      <FileName>PointZone.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ares::CPlaneZone" Collapsed="true">
+    <Position X="8.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAADCAAAAAAAAAgAAAAEAQAIA=</HashCode>
+      <FileName>PlaneZone.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ares::CSphericEmitter" Collapsed="true">
+    <Position X="8.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAEAABAAAAAAAAAAAAAIAAIAAIBAEAgAICAAAIAAAA=</HashCode>
+      <FileName>SphericEmitter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ares::CParticle" Collapsed="true">
+    <Position X="5.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAAQAEEHHAAAAAEIAAAAAAAAAEAkAAAAADSAEgAAg=</HashCode>
+      <FileName>Particle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ares::CModel" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAUEACIBACAAJAiAHR0wAIAgAgAMAAAAAgABgAAcQBA=</HashCode>
+      <FileName>Model.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ares::CParticleGroup" Collapsed="true">
+    <Position X="6.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAEADSAJIKiAIEAUABBBAIkBAiNQlAARBgDgQAAJAA=</HashCode>
+      <FileName>ParticleGroup.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ares::CSystem" Collapsed="true">
+    <Position X="2.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAABAAAAAAAAAgAABIgAAAAAAAAAAAQ=</HashCode>
+      <FileName>System.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ares::CPool&lt;T&gt;" Collapsed="true">
+    <Position X="6.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAABCAAAAAAAUAAEAIAAQAEEUAAQAAAAAAAAhAAA=</HashCode>
+      <FileName>Pool.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ares::CInterpolator" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gBAAIQABAAAACIAAAAQIQgUAAAAAAUAAAAAAAAgAAAA=</HashCode>
+      <FileName>Interpolator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ares::CBufferMgr">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="Ares::CBufferMgr::SPRITE_VERTEX" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Buffer.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAACAAAAAAAgAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Buffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ares::CPointRender" Collapsed="true">
+    <Position X="2.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAAAAAAwEAAAQAAAAAAAAAAAQAAAAAQAABAAAAUAAAA=</HashCode>
+      <FileName>PointRender.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Ares::VERTEX_PARTICLE" Collapsed="true">
+    <Position X="8.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAQCAAAAAAAAAAAA=</HashCode>
+      <FileName>ParticleEmitter.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Ares::SRenderEntry" Collapsed="true">
+    <Position X="4.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAASAAAAAAAAAAAAQAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>h:\aresengine\sdk\include\aresrenderentry.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Ares::SSPrite" Collapsed="true">
+    <Position X="6.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAgAAAAEAAAAAAAAAAAQABAhBgAIAA=</HashCode>
+      <FileName>Sprite.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Ares::SInterpolatorEntry" Collapsed="true">
+    <Position X="7.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAYAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interpolator.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>

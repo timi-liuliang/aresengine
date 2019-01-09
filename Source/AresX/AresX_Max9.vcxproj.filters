@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="logo.bmp">
+      <Filter>Res\bmp</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Res</Filter>
+    </ClInclude>
+    <ClInclude Include="Function.h">
+      <Filter>Function</Filter>
+    </ClInclude>
+    <ClInclude Include="IGame_AnimationManager.h">
+      <Filter>M1_3DXI\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="IGame_M1ExportManager.h">
+      <Filter>M1_3DXI\General_Export</Filter>
+    </ClInclude>
+    <ClInclude Include="IGame_BoneKeeper.h">
+      <Filter>M1_3DXI\General_Export\BoneKeeper</Filter>
+    </ClInclude>
+    <ClInclude Include="IGame_Mesh.h">
+      <Filter>M1_3DXI\General_Export\MeshKeeper</Filter>
+    </ClInclude>
+    <ClInclude Include="IGame_MeshKeeper.h">
+      <Filter>M1_3DXI\General_Export\MeshKeeper</Filter>
+    </ClInclude>
+    <ClInclude Include="IGame_MtlKeeper.h">
+      <Filter>M1_3DXI\General_Export\MtlKeeper</Filter>
+    </ClInclude>
+    <ClInclude Include="Init.h">
+      <Filter>M1_3DXI</Filter>
+    </ClInclude>
+    <ClInclude Include="AeConfig.h">
+      <Filter>MaxExport\Utility\Logic\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="M1Export.h">
+      <Filter>MaxExport\Utility\Logic\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="AeUtilityUI.h">
+      <Filter>MaxExport\Utility\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="AeUtility.h">
+      <Filter>MaxExport\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="AeExportClassDesc.h">
+      <Filter>MaxExport</Filter>
+    </ClInclude>
+    <ClInclude Include="Win32IO.h">
+      <Filter>Win32IO</Filter>
+    </ClInclude>
+    <ClInclude Include="DllEntry.h" />
+    <ClInclude Include="..\..\Engine\RenderSystem\M1\M1Loader.h">
+      <Filter>M1_3DXI\General_Export\ModelLoader</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Function">
+      <UniqueIdentifier>{8c0572d2-85ab-4446-a7c5-d35783e86dcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Res">
+      <UniqueIdentifier>{5edec384-c199-4da0-aac7-0eb3e9638171}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="M1_3DXI">
+      <UniqueIdentifier>{5ce26e63-d5d5-4797-885d-e155b1d9ffb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="M1_3DXI\Animation">
+      <UniqueIdentifier>{d4a765c3-9368-41a1-a07f-198e8069bab4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="M1_3DXI\General_Export">
+      <UniqueIdentifier>{7e8e8b28-052e-4782-b7da-84024f4a9c39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="M1_3DXI\General_Export\BoneKeeper">
+      <UniqueIdentifier>{616e4a7f-ee7f-40d2-af9e-4b922b19ac38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="M1_3DXI\General_Export\MeshKeeper">
+      <UniqueIdentifier>{4e2942b4-bcaf-4faf-accc-33f6df54e6b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="M1_3DXI\General_Export\MtlKeeper">
+      <UniqueIdentifier>{4fea3606-9530-43a8-bb84-25b8c1ad2eb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MaxExport">
+      <UniqueIdentifier>{71616882-e2d4-4ab0-88a3-7f6610f9f21b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MaxExport\Utility">
+      <UniqueIdentifier>{30ee8155-a6b8-4c55-ad07-02fa88a78b1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MaxExport\Utility\Logic">
+      <UniqueIdentifier>{03e5fec6-4b5b-4906-83e7-f896933f2d75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MaxExport\Utility\UI">
+      <UniqueIdentifier>{b7be8c7b-8a23-44fd-b86b-a7e50908ba97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MaxExport\Utility\Logic\Config">
+      <UniqueIdentifier>{1c3cb9c7-f49a-4c9c-a1b3-7346b0da268c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MaxExport\Utility\Logic\Export">
+      <UniqueIdentifier>{41e426d1-8c7d-489a-a060-bde64b0582c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Res\bmp">
+      <UniqueIdentifier>{c4eaab0a-c2b4-45bd-8f99-e00b4a399646}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win32IO">
+      <UniqueIdentifier>{0cc3570e-bb2e-4e4c-84e3-128307cea0bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="M1_3DXI\General_Export\ModelLoader">
+      <UniqueIdentifier>{508e4317-1d79-4a5f-b4c4-03a7ec42826a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Function.cpp">
+      <Filter>Function</Filter>
+    </ClCompile>
+    <ClCompile Include="IGame_AnimationManager.cpp">
+      <Filter>M1_3DXI\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="IGame_M1ExportManager.cpp">
+      <Filter>M1_3DXI\General_Export</Filter>
+    </ClCompile>
+    <ClCompile Include="IGame_BoneKeeper.cpp">
+      <Filter>M1_3DXI\General_Export\BoneKeeper</Filter>
+    </ClCompile>
+    <ClCompile Include="IGame_Mesh.cpp">
+      <Filter>M1_3DXI\General_Export\MeshKeeper</Filter>
+    </ClCompile>
+    <ClCompile Include="IGame_MeshKeeper.cpp">
+      <Filter>M1_3DXI\General_Export\MeshKeeper</Filter>
+    </ClCompile>
+    <ClCompile Include="IGame_MtlKeeper.cpp">
+      <Filter>M1_3DXI\General_Export\MtlKeeper</Filter>
+    </ClCompile>
+    <ClCompile Include="Init.cpp">
+      <Filter>M1_3DXI</Filter>
+    </ClCompile>
+    <ClCompile Include="M1Export.cpp">
+      <Filter>MaxExport\Utility\Logic\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="AeUtilityUI.cpp">
+      <Filter>MaxExport\Utility\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="AeUtility.cpp">
+      <Filter>MaxExport\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="AeExportClassDesc.cpp">
+      <Filter>MaxExport</Filter>
+    </ClCompile>
+    <ClCompile Include="DllEntry.cpp" />
+    <ClCompile Include="..\..\Engine\RenderSystem\M1\M1Loader.cpp">
+      <Filter>M1_3DXI\General_Export\ModelLoader</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AresX_Max9.rc">
+      <Filter>Res</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,49 @@
+<!--note
+		1.headers -title
+		2.item    -standItem attribute
+              property - propery name
+              widget   - widget type use for edit
+-->
+<cfg>
+  <headers>
+    <header text="Property" />
+    <header text="Value" />
+  </headers>
+
+  <item text="Rasterization" row="0" col="0">
+    <item text="Cell Size" row="0" col="0" />
+    <item text="" row="0" col="1" property="Cell Size" widget="doubleSpinBox" />
+    <item text="Cell Height" row="1" col="0" />
+    <item text="" row="1" col="1" property="Cell Height" widget="doubleSpinBox" />
+  </item>
+  <item text="Agent" row="1" col="0">
+    <item text="Height" row="0" col="0" />
+    <item text="" row="0" col="1" property="Height" widget="doubleSpinBox" />
+    <item text="Radius" row="1" col="0" />
+    <item text="" row="1" col="1" property="Radius" widget="doubleSpinBox" />
+    <item text="Max Climb" row="2" col="0" />
+    <item text="" row="2" col="1" property="Max Climb" widget="doubleSpinBox" />
+    <item text="Max Slope" row="3" col="0" />
+    <item text="" row="3" col="1" property="Max Slope" widget="doubleSpinBox" />
+  </item>
+  <item text="Region" row="2" col="0">
+    <item text="Min Region Size" row="0" col="0" />
+    <item text="" row="0" col="1" property="Min Region Size" widget="doubleSpinBox" />
+    <item text="Merged Region Size" row="1" col="0" />
+    <item text="" row="1" col="1" property="Merged Region Size" widget="doubleSpinBox" />
+  </item>
+  <item text="Polygonization" row="3" col="0">
+    <item text="Max Edge Length" row="0" col="0" />
+    <item text="" row="0" col="1" property="Max Edge Length" widget="doubleSpinBox" />
+    <item text="Max Edge Error" row="1" col="0" />
+    <item text="" row="1" col="1" property="Max Edge Error" widget="doubleSpinBox" />
+    <item text="Verts Per Poly" row="2" col="0" />
+    <item text="" row="2" col="1" property="Verts Per Poly" widget="spinBox" />
+  </item>
+  <item text="Detail Mesh" row="4" col="0">
+    <item text="Sample Distance" row="0" col="0" />
+    <item text="" row="0" col="1" property="Sample Distance" widget="spinBox" />
+    <item text="Max Sample Error" row="1" col="0" />
+    <item text="" row="1" col="1" property="Max Sample Error" widget="spinBox" />
+  </item>
+</cfg>

@@ -1,0 +1,29 @@
+<!--note
+		1.headers -title
+		2.item    -standItem attribute
+              property - propery name
+              widget   - widget type use for edit
+-->
+<cfg>
+  <headers>
+    <header text="Property" />
+    <header text="Value" />
+  </headers>
+
+	<item text="General" row="0" col="0" bold="1">
+		<item text="RenderQueue" row="0" col="0" />
+		<item text="" row="0" col="1" property="RenderQueue" widget="LineEdit" />
+		<item text="ShaderTree" row="1" col="0" />
+		<item text="" row="1" col="1" property="ShaderTreePath" widget="FileSelect" />
+	</item>
+	<item text="Parameters" row="1" col="0" bold="1">
+	</item>
+	<item text="DepthStencilState" row="2" col="0" bold="1">
+		<item text="DepthEnable" row="0" col="0" />
+		<item text="" row="0" col="1" property="DSS_DepthEnable" widget="CheckBox" />
+		<item text="DepthWriteMask" row="1" col="0" />
+		<item text="" row="1" col="1" property="DSS_DepthWriteMask" widget="CheckBox" />
+		<item text="DepthFun" row="2" col="0" />
+		<item text="" row="2" col="1" property="DSS_DepthFun" widget="CheckBox" />
+	</item>
+</cfg>

@@ -1,0 +1,21 @@
+<!--note
+		1.headers -title
+		2.item    -standItem attribute
+              property - propery name
+              widget   - widget type use for edit
+-->
+<cfg>
+  <headers>
+    <header text="Property" />
+    <header text="Value" />
+  </headers>
+
+  	<item text="LifeMin" row="0" col="0" />
+	<item text="" row="0" col="1" property="lifemin" widget="doubleSpinBox" />
+	<item text="LifeMax" row="1" col="0" />
+	<item text="" row="1" col="1" property="lifemax" widget="doubleSpinBox" />
+	<item text="Gravity" row="2" col="0" />
+	<item text="" row="2" col="1" property="gravity" widget="LineEdit" />
+	<item text="Texture" row="3" col="0" />
+	<item text="" row="3" col="1" property="texture" widget="FileSelect" />
+</cfg>

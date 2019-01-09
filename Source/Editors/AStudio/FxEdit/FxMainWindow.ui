@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FxMainWindow</class>
+ <widget class="QMainWindow" name="FxMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1009</width>
+    <height>701</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>FxEditor</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>:/EditorRes/image/05.png</normaloff>:/EditorRes/image/05.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="m_menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1009</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="m_actionNew"/>
+    <addaction name="m_actionOpen"/>
+    <addaction name="m_actionSave"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="m_pActionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuVideo">
+    <property name="title">
+     <string>Video</string>
+    </property>
+    <widget class="QMenu" name="menu_FillMode">
+     <property name="title">
+      <string>&amp;FillMode</string>
+     </property>
+     <addaction name="m_pActionFillSolid"/>
+     <addaction name="m_pActionFillWireFrame"/>
+     <addaction name="m_pActionFillPoint"/>
+    </widget>
+    <addaction name="menu_FillMode"/>
+   </widget>
+   <widget class="QMenu" name="menuCamera">
+    <property name="title">
+     <string>Camera</string>
+    </property>
+    <addaction name="m_generalCamera"/>
+    <addaction name="m_skyCamera"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menuVideo"/>
+   <addaction name="menuCamera"/>
+   <addaction name="menu_Help"/>
+  </widget>
+  <widget class="QToolBar" name="m_toolBar">
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>25</height>
+    </size>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>15</width>
+     <height>15</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="m_actionNew"/>
+   <addaction name="m_actionOpen"/>
+   <addaction name="m_actionSave"/>
+   <addaction name="separator"/>
+   <addaction name="m_gridVisible"/>
+   <addaction name="m_bgVisible"/>
+   <addaction name="m_actionTrans"/>
+  </widget>
+  <action name="m_actionSave">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/save.png</normaloff>:/icon/Icon/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>保存</string>
+   </property>
+   <property name="toolTip">
+    <string>保存当前编辑模型信息</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="m_pActionAddModel">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/EditorRes/image/06.png</normaloff>:/EditorRes/image/06.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add Model(.m1)</string>
+   </property>
+   <property name="toolTip">
+    <string>添加M1模型</string>
+   </property>
+  </action>
+  <action name="m_pActionAbout">
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+   <property name="toolTip">
+    <string>About the Ares</string>
+   </property>
+  </action>
+  <action name="m_pActionFillPoint">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>:/EditorRes/image/04.png</normaloff>:/EditorRes/image/04.png</iconset>
+   </property>
+   <property name="text">
+    <string>POINT</string>
+   </property>
+   <property name="toolTip">
+    <string>填充模式</string>
+   </property>
+  </action>
+  <action name="m_pActionFillWireFrame">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>:/EditorRes/image/05.png</normaloff>:/EditorRes/image/05.png</iconset>
+   </property>
+   <property name="text">
+    <string>WIREFRAME</string>
+   </property>
+   <property name="toolTip">
+    <string>填充模式</string>
+   </property>
+  </action>
+  <action name="m_pActionFillSolid">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>:/EditorRes/image/06.png</normaloff>:/EditorRes/image/06.png</iconset>
+   </property>
+   <property name="text">
+    <string>SOLID</string>
+   </property>
+   <property name="toolTip">
+    <string>D3DFIll_SOLID</string>
+   </property>
+  </action>
+  <action name="m_actionNew">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/new.png</normaloff>:/icon/Icon/new.png</iconset>
+   </property>
+   <property name="text">
+    <string>新建</string>
+   </property>
+  </action>
+  <action name="m_actionOpen">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/Open.png</normaloff>:/icon/Icon/Open.png</iconset>
+   </property>
+   <property name="text">
+    <string>打开</string>
+   </property>
+   <property name="toolTip">
+    <string>打开</string>
+   </property>
+  </action>
+  <action name="m_gridVisible">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/StaticMesh.png</normaloff>:/icon/Icon/StaticMesh.png</iconset>
+   </property>
+   <property name="text">
+    <string>网格显示</string>
+   </property>
+   <property name="toolTip">
+    <string>网格显示</string>
+   </property>
+  </action>
+  <action name="m_bgVisible">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/StaticMesh.png</normaloff>:/icon/Icon/StaticMesh.png</iconset>
+   </property>
+   <property name="text">
+    <string>背景显示</string>
+   </property>
+   <property name="toolTip">
+    <string>背景显示</string>
+   </property>
+  </action>
+  <action name="m_actionTrans">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/new/prefix1/Icon/move.png</normaloff>:/new/prefix1/Icon/move.png</iconset>
+   </property>
+   <property name="text">
+    <string>Translate</string>
+   </property>
+  </action>
+  <action name="m_generalCamera">
+   <property name="text">
+    <string>General</string>
+   </property>
+  </action>
+  <action name="m_skyCamera">
+   <property name="text">
+    <string>Sky</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../App.qrc"/>
+  <include location="../App.qrc"/>
+ </resources>
+ <connections/>
+</ui>

@@ -1,0 +1,23 @@
+<!--note
+		1.headers -title
+		2.item    -standItem attribute
+              property - propery name
+              widget   - widget type use for edit
+-->
+<cfg>
+  <headers>
+    <header text="Property" />
+    <header text="Value" />
+  </headers>
+
+	<item text="Graphics" row="0" col="0">
+		<item text="Billboard" row="0" col="0" />
+		<item text="" row="0" col="1" property="Billboard" widget="CheckBox" />
+		<item text="RenderQueue" row="1" col="0" />
+		<item text="" row="1" col="1" property="RenderQueue" widget="LineEdit" />
+		<item text="Color" row="2" col="0" />
+		<item text="" row="2" col="1" property="Color" widget="ColorSelect" />
+		<item text="DiffuseTexture" row="3" col="0" />
+		<item text="" row="3" col="1" property="DiffuseTexture" widget="FileSelect" />
+	</item>
+</cfg>

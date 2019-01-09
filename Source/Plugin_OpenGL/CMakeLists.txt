@@ -1,0 +1,86 @@
+# 库依赖
+#FIND_PACKAGE(Boost 1.5.2 REQUIRED)
+
+# 附加包含目录
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/Include)
+
+# 添加预处理器
+IF(WIN32)
+	ADD_DEFINITIONS(-DPLATFORM_WIN32)
+ELSEIF(APPLE)
+	IF(${CMAKE_OSX_SYSROOT} MATCHES "MacOSX.platform")
+		ADD_DEFINITIONS(-DPLATFORM_MAC)
+	ELSE()
+		ADD_DEFINITIONS(-DPLATFORM_IOS)
+	ENDIF()
+ENDIF()
+
+# 设置模块名称
+SET(MODULE_NAME Plugin_OpenGL)
+
+# 源文件路径
+SET(MODULE_HEADER_PATH ${PROJECT_SOURCE_DIR}/Include/${MODULE_NAME})
+SET(MODULE_SOURCE_PATH ${PROJECT_SOURCE_DIR}/Source/${MODULE_NAME})
+
+# GlLoader
+SET(GL_GLLOADER_FILES
+	${MODULE_SOURCE_PATH}/glloader/glloader.h
+	${MODULE_SOURCE_PATH}/glloader/glloader_egl.h
+	${MODULE_SOURCE_PATH}/glloader/glloader_gl.h
+	${MODULE_SOURCE_PATH}/glloader/glloader_gles.h
+	${MODULE_SOURCE_PATH}/glloader/glloader_glx.h
+	${MODULE_SOURCE_PATH}/glloader/glloader_wgl.h
+	${MODULE_SOURCE_PATH}/glloader/utils.h
+	${MODULE_SOURCE_PATH}/glloader/glloader_egl.c
+	${MODULE_SOURCE_PATH}/glloader/glloader_gl.c
+	${MODULE_SOURCE_PATH}/glloader/glloader_gles.c
+	${MODULE_SOURCE_PATH}/glloader/glloader_glx.c
+	${MODULE_SOURCE_PATH}/glloader/glloader_wgl.c
+	${MODULE_SOURCE_PATH}/glloader/utils.cpp
+)
+
+# 包含源文件
+SET(MODULE_HEADER_FILES
+	${MODULE_SOURCE_PATH}/OGLFrameBuffer.h
+	${MODULE_SOURCE_PATH}/OGLGraphicsBuffer.h
+	${MODULE_SOURCE_PATH}/OGLMapping.h
+	${MODULE_SOURCE_PATH}/OGLPlatform.h
+	${MODULE_SOURCE_PATH}/OGLRenderDevice.h
+	${MODULE_SOURCE_PATH}/OGLRenderLayout.h
+	${MODULE_SOURCE_PATH}/OGLRenderMethod.h
+	${MODULE_SOURCE_PATH}/OGLRenderState.h
+	${MODULE_SOURCE_PATH}/OGLRenderView.h
+	${MODULE_SOURCE_PATH}/OGLRenderWindow.h
+	${MODULE_SOURCE_PATH}/OGLShaderVariable.h
+	${MODULE_SOURCE_PATH}/OGLTexture.h
+	${MODULE_SOURCE_PATH}/OGLTypedefs.h
+)
+
+SET(MODULE_SOURCE_FILES
+	${MODULE_SOURCE_PATH}/DllEntry.cpp
+	${MODULE_SOURCE_PATH}/OGLFrameBuffer.cpp
+	${MODULE_SOURCE_PATH}/OGLGraphicsBuffer.cpp
+	${MODULE_SOURCE_PATH}/OGLMapping.cpp
+	${MODULE_SOURCE_PATH}/OGLRenderDevice.cpp
+	${MODULE_SOURCE_PATH}/OGLRenderLayout.cpp
+	${MODULE_SOURCE_PATH}/OGLRenderMethod.cpp
+	${MODULE_SOURCE_PATH}/OGLRenderState.cpp
+	${MODULE_SOURCE_PATH}/OGLRenderView.cpp
+	${MODULE_SOURCE_PATH}/OGLRenderWindow.cpp
+	${MODULE_SOURCE_PATH}/OGLTexture.cpp
+	${MODULE_SOURCE_PATH}/OGLTexture2D.cpp
+)
+
+SOURCE_GROUP("GLLoader"	FILES ${GL_GLLOADER_FILES})
+SOURCE_GROUP("Source Files" FILES ${MODULE_SOURCE_FILES})
+SOURCE_GROUP("Header Files" FILES ${MODULE_HEADER_FILES})
+
+# 添加库
+ADD_LIBRARY(${MODULE_NAME} 
+	${GL_GLLOADER_FILES}
+	${MODULE_HEADER_FILES}
+	${MODULE_SOURCE_FILES}
+)
+
+# 设置属性
+SET_TARGET_PROPERTIES(${MODULE_NAME} PROPERTIES FOLDER "Engine")

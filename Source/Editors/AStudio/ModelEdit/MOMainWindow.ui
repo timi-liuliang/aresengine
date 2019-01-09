@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MOMainWindow</class>
+ <widget class="QMainWindow" name="MOMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1038</width>
+    <height>701</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Model Editor</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>:/icon/Icon/character.png</normaloff>:/icon/Icon/character.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="m_menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1038</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>文件(&amp;F)</string>
+    </property>
+    <widget class="QMenu" name="menu_3">
+     <property name="title">
+      <string>导出</string>
+     </property>
+     <addaction name="m_actionExportCollisionShapes"/>
+    </widget>
+    <widget class="QMenu" name="menu_4">
+     <property name="title">
+      <string>导入</string>
+     </property>
+     <addaction name="m_actionImportCollisionShapes"/>
+    </widget>
+    <addaction name="m_actionOpen"/>
+    <addaction name="m_actionSave"/>
+    <addaction name="separator"/>
+    <addaction name="menu_4"/>
+    <addaction name="menu_3"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>帮助(&amp;H)</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="m_pActionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>生成(&amp;G)</string>
+    </property>
+    <addaction name="m_actionBuildNormal"/>
+    <addaction name="m_actionBuildTangent"/>
+    <addaction name="m_actionGenerateLightmapUV"/>
+    <addaction name="m_actionCollision"/>
+   </widget>
+   <widget class="QMenu" name="menu_V">
+    <property name="title">
+     <string>视图(&amp;V)</string>
+    </property>
+    <addaction name="m_actionCollision"/>
+   </widget>
+   <widget class="QMenu" name="menu_T">
+    <property name="title">
+     <string>转换(&amp;T)</string>
+    </property>
+    <addaction name="m_actionYNDToAres"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_V"/>
+   <addaction name="menu_2"/>
+   <addaction name="menu_T"/>
+   <addaction name="menu_Help"/>
+  </widget>
+  <widget class="QToolBar" name="m_toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>15</width>
+     <height>15</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="m_actionOpen"/>
+   <addaction name="m_actionSave"/>
+   <addaction name="separator"/>
+   <addaction name="m_actionShowUV"/>
+   <addaction name="separator"/>
+   <addaction name="m_actionTrans"/>
+   <addaction name="m_actionRotation"/>
+  </widget>
+  <action name="m_actionSave">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/save.png</normaloff>:/icon/Icon/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>保存</string>
+   </property>
+   <property name="toolTip">
+    <string>保存当前编辑模型信息</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="m_pActionAddModel">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/EditorRes/image/06.png</normaloff>:/EditorRes/image/06.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add Model(.m1)</string>
+   </property>
+   <property name="toolTip">
+    <string>添加M1模型</string>
+   </property>
+  </action>
+  <action name="m_pActionAbout">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/icon/icon/05.png</normaloff>:/icon/icon/05.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+   <property name="toolTip">
+    <string>About the Ares</string>
+   </property>
+  </action>
+  <action name="m_pActionFillPoint">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>:/EditorRes/image/04.png</normaloff>:/EditorRes/image/04.png</iconset>
+   </property>
+   <property name="text">
+    <string>POINT</string>
+   </property>
+   <property name="toolTip">
+    <string>填充模式</string>
+   </property>
+  </action>
+  <action name="m_pActionFillWireFrame">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/wire.bmp</normaloff>:/icon/Icon/wire.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>WIREFRAME</string>
+   </property>
+   <property name="toolTip">
+    <string>填充模式</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+2</string>
+   </property>
+  </action>
+  <action name="m_pActionFillSolid">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/solid.bmp</normaloff>:/icon/Icon/solid.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>SOLID</string>
+   </property>
+   <property name="toolTip">
+    <string>D3DFIll_SOLID</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+1</string>
+   </property>
+  </action>
+  <action name="m_actionEnglish">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>English</string>
+   </property>
+  </action>
+  <action name="m_actionChinese">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>中文</string>
+   </property>
+  </action>
+  <action name="m_actionGenerateLightmapUV">
+   <property name="text">
+    <string>光照图UV</string>
+   </property>
+   <property name="toolTip">
+    <string>生成光照图UV</string>
+   </property>
+  </action>
+  <action name="m_actionBuildNormal">
+   <property name="text">
+    <string>法线</string>
+   </property>
+  </action>
+  <action name="m_actionBuildTangent">
+   <property name="text">
+    <string>切线</string>
+   </property>
+  </action>
+  <action name="m_actionBuildConvexHull">
+   <property name="text">
+    <string>碰撞</string>
+   </property>
+   <property name="toolTip">
+    <string>凸包碰撞</string>
+   </property>
+  </action>
+  <action name="m_actionOpen">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/Open.png</normaloff>:/icon/Icon/Open.png</iconset>
+   </property>
+   <property name="text">
+    <string>打开</string>
+   </property>
+  </action>
+  <action name="m_actionShowUV">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/UV.png</normaloff>:/icon/Icon/UV.png</iconset>
+   </property>
+   <property name="text">
+    <string>显示光照图UV</string>
+   </property>
+  </action>
+  <action name="m_actionCollision">
+   <property name="text">
+    <string>碰撞</string>
+   </property>
+   <property name="toolTip">
+    <string>碰撞编辑</string>
+   </property>
+  </action>
+  <action name="m_actionTrans">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/move.png</normaloff>:/icon/Icon/move.png</iconset>
+   </property>
+   <property name="text">
+    <string>移动</string>
+   </property>
+   <property name="shortcut">
+    <string>T</string>
+   </property>
+  </action>
+  <action name="m_actionRotation">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/rotate.png</normaloff>:/icon/Icon/rotate.png</iconset>
+   </property>
+   <property name="text">
+    <string>旋转</string>
+   </property>
+   <property name="shortcut">
+    <string>R</string>
+   </property>
+  </action>
+  <action name="m_actionExportCollisionShapes">
+   <property name="text">
+    <string>CollisionShapes</string>
+   </property>
+   <property name="toolTip">
+    <string>导出碰撞模型</string>
+   </property>
+  </action>
+  <action name="m_actionImportCollisionShapes">
+   <property name="text">
+    <string>CollisionShapes</string>
+   </property>
+  </action>
+  <action name="m_actionYNDToAres">
+   <property name="text">
+    <string>YND-&gt;Ares</string>
+   </property>
+   <property name="toolTip">
+    <string>YND文件格式转Ares</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../App.qrc"/>
+ </resources>
+ <connections/>
+</ui>

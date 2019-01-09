@@ -1,0 +1,64 @@
+.QWidget {
+	background-color: rgb(19, 19, 20);
+}
+
+.QTextEdit 
+{
+	color			: rgb(255,255,255);
+	background-color: rgb(19, 19, 20);
+	border-width	: 0px;
+	border-color    : rgb(19, 19, 20);
+	border-style	: plain;
+}
+
+/*
+QLabel {
+    color : rgb(209, 209, 209);
+}
+
+QRadioButton:!hover {
+	color : rgb(209, 209, 209);
+}
+
+QRadioButton:hover {
+	color : rgb( 255, 196, 0);
+}
+
+ QRadioButton::indicator {
+     width: 13px;
+     height: 13px;
+ }
+*/
+ QRadioButton::indicator::unchecked {
+     border-radius: 5px;
+     background-color: rgb(255, 19, 20);
+ }
+
+ QRadioButton::indicator::checked {
+     border-radius: 5px;
+     background-color: rgb(19, 255, 20);
+ }
+
+ /*************************************/
+ /*
+QCheckBox:!hover {
+	color : rgb(209, 209, 209);
+}
+
+QCheckBox:hover {
+	color : rgb( 255, 196, 0);
+}
+*/
+
+/*group box
+QGroupBox {
+	border: 2px solid rgb(19, 19, 20);
+}
+
+QGroupBox:title{
+	color : rgb( 196, 196, 196);
+}
+
+QDockWidget::title {
+     padding: 0px;
+ }*/

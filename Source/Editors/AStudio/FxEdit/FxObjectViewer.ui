@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FxObjectViewer</class>
+ <widget class="QDockWidget" name="FxObjectViewer">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>222</width>
+    <height>467</height>
+   </rect>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>:/Icon/Icon/info.png</normaloff>:/Icon/Icon/info.png</iconset>
+  </property>
+  <property name="windowTitle">
+   <string>对象查看器</string>
+  </property>
+  <widget class="QWidget" name="dockWidgetContents">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QListWidget" name="m_listWidget"/>
+    </item>
+   </layout>
+  </widget>
+  <action name="m_object3DPatch">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/3dPatch.png</normaloff>:/icon/Icon/3dPatch.png</iconset>
+   </property>
+   <property name="text">
+    <string>3DPatch</string>
+   </property>
+   <property name="toolTip">
+    <string>3DPatch</string>
+   </property>
+  </action>
+  <action name="m_objectParticleSystem">
+   <property name="icon">
+    <iconset resource="../App.qrc">
+     <normaloff>:/icon/Icon/3dPatch.png</normaloff>:/icon/Icon/3dPatch.png</iconset>
+   </property>
+   <property name="text">
+    <string>ParticleSystem</string>
+   </property>
+  </action>
+  <action name="m_actionDelete">
+   <property name="text">
+    <string>Delete</string>
+   </property>
+  </action>
+ </widget>
+ <tabstops>
+  <tabstop>m_listWidget</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../App.qrc"/>
+ </resources>
+ <connections/>
+</ui>
